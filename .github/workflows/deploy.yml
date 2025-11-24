@@ -1,0 +1,24 @@
+name: Deploy to Linux Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up SSH key
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Copy files to server
+        run: |
+          rsync -avz --delete --exclude='.git*' ./ jouca@217.182.174.221:/var/www/html/hexatransit
+        env:
+          SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK }}
