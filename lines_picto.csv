@@ -62,7 +62,7 @@ fr-star;6-0012;12;https://clarifygdps.com/hexatransit/logo/fr-star/bus/12.png;BU
 fr-star;6-0013;13;https://clarifygdps.com/hexatransit/logo/fr-star/bus/13.png;BUS;0;0
 fr-star;6-0014;14;https://clarifygdps.com/hexatransit/logo/fr-star/bus/14.png;BUS;0;0
 fr-star;6-0032;32;https://clarifygdps.com/hexatransit/logo/fr-star/bus/32.png;BUS;0;0
-fr-star;6-0033;34;https://clarifygdps.com/hexatransit/logo/fr-star/bus/34.png;BUS;0;0
+fr-star;6-0034;34;https://clarifygdps.com/hexatransit/logo/fr-star/bus/34.png;BUS;0;0
 fr-star;6-0035;35;https://clarifygdps.com/hexatransit/logo/fr-star/bus/35.png;BUS;0;0
 fr-star;6-0037;37;https://clarifygdps.com/hexatransit/logo/fr-star/bus/37.png;BUS;0;0
 fr-star;6-0038;38;https://clarifygdps.com/hexatransit/logo/fr-star/bus/38.png;BUS;0;0
@@ -119,8 +119,6 @@ fr-star;6-0124;N4;https://clarifygdps.com/hexatransit/logo/fr-star/bus/N4.png;BU
 fr-star;6-0125;N5;https://clarifygdps.com/hexatransit/logo/fr-star/bus/N5.png;BUS;0;0
 fr-star;6-0804;TTZ;https://clarifygdps.com/hexatransit/logo/fr-star/bus/TTZ.png;BUS;0;0
 fr-star;6-0470;RPI-1;https://clarifygdps.com/hexatransit/logo/fr-star/bus/RPI-1.png;BUS;0;0
-fr-star;6-0801;Bus Relais Métro a;https://clarifygdps.com/hexatransit/logo/fr-star/bus/BRM.png;BUS;0;0
-fr-star;6-0802;Bus Relais Métro b;https://clarifygdps.com/hexatransit/logo/fr-star/bus/BRM.png;BUS;0;0
 fr-astuce;TCAR:90;M;https://clarifygdps.com/hexatransit/logo/fr-astuce/metro/M.png;SUBWAY;0;0
 fr-astuce;TCAR:91;T1;https://clarifygdps.com/hexatransit/logo/fr-astuce/bus/T1.png;BUS;0;0
 fr-astuce;TCAR:92;T2;https://clarifygdps.com/hexatransit/logo/fr-astuce/bus/T2.png;BUS;0;0
