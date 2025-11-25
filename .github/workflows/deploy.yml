@@ -2,11 +2,32 @@ name: Deploy to Linux Server
 
 on:
   push:
-    branches:
-      - main
+    branches: ["*"]
+  pull_request:
+    branches: ["*"]
 
 jobs:
+  syntax-check:
+    name: Syntax check (CSV & JSON)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Check trafic.json syntax
+        run: |
+          python -m json.tool trafic.json
+
+      - name: Check lines_picto.csv syntax
+        run: |
+          python -c "import csv; f=open('lines_picto.csv', encoding='utf-8'); next(csv.reader(f, delimiter=';')); f.seek(0); [row for row in csv.reader(f, delimiter=';')]"
+
+      - name: Check logo paths existence
+        run: python -c "import csv,os;f=open('lines_picto.csv',encoding='utf-8');r=csv.DictReader(f,delimiter=';');missing=[row['logoPath'] for row in r if not os.path.exists(row['logoPath'].replace('https://clarifygdps.com/hexatransit/',''))];f.close();print('Missing logo files:', missing) if missing else None; exit(1) if missing else None"
+
   deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: syntax-check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
