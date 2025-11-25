@@ -47,6 +47,9 @@ jobs:
             print('Failed to open lines_picto.csv:', e)
             sys.exit(1)
           reader = csv.DictReader(f, delimiter=';')
+          # Remove BOM from header names if present (some editors add a UTF-8 BOM)
+          if reader.fieldnames:
+            reader.fieldnames = [fn.lstrip('\ufeff') for fn in reader.fieldnames]
           agencies = defaultdict(set)
           for row in reader:
             aid = row.get('agency_id')
@@ -54,6 +57,7 @@ jobs:
             if aid and lid:
               agencies[aid].add(lid)
           f.close()
+          print(f'Parsed {len(agencies)} agency(ies): {list(agencies.keys())[:50]}')
 
           errors = []
           total_agencies = len(agencies)
