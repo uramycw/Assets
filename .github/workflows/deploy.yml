@@ -23,7 +23,8 @@ jobs:
           python -c "import csv; f=open('lines_picto.csv', encoding='utf-8'); next(csv.reader(f, delimiter=';')); f.seek(0); [row for row in csv.reader(f, delimiter=';')]"
 
       - name: Check logo paths existence
-        run: python -c "import csv,os;f=open('lines_picto.csv',encoding='utf-8');r=csv.DictReader(f,delimiter=';');missing=[row['logoPath'] for row in r if not os.path.exists(row['logoPath'].replace('https://clarifygdps.com/hexatransit/',''))];f.close();print('Missing logo files:', missing) if missing else None; exit(1) if missing else None"
+        run: python -c "import csv,os;f=open('lines_picto.csv',encoding='utf-8');r=csv.DictReader(f,delimiter=';');missing=[row['logoPath'] for row in r if not os.path.exists(row['logoPath'].replace('https://clarifygdps.com/hexatransit/',''))];f.close();
+          print('Missing logo files ({}):'.format(len(missing)));[print(' -',m) for m in missing];exit(1) if missing else None"
 
   deploy:
     if: github.ref == 'refs/heads/main'
