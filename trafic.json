@@ -1,6 +1,6 @@
 [
     {
-        "companyId": "FR-IDFM",
+        "companyId": "fr-idf",
         "companyLogo": "https://clarifygdps.com/hexatransit/logo/fr-idf/idfm.png",
         "width": 150.0,
         "height": 100.0,
@@ -349,7 +349,7 @@
         ]
     },
     {
-        "companyId": "FR-STAR",
+        "companyId": "fr-star",
         "companyLogo": "https://clarifygdps.com/hexatransit/logo/fr-star/star.png",
         "width": 150.0,
         "height": 100.0,
