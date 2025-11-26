@@ -59,8 +59,12 @@ jobs:
                 if not isinstance(item, dict):
                   continue
                 lid = item.get('lineId')
-                if lid and isinstance(lid, str) and lid.strip():
-                  line_ids.add(lid.strip())
+                # normalize/strip line ids to ensure exact route_id matching
+                if lid is None:
+                  continue
+                lid_s = str(lid).strip()
+                if lid_s:
+                  line_ids.add(lid_s)
             agencies[aid] = line_ids
 
           if not agencies:
@@ -116,14 +120,20 @@ jobs:
               errors.append(msg)
               continue
 
+            # Build set of route_id values (trimmed). Do NOT use route_short_name.
             route_ids = set()
             for r in routes:
               if isinstance(r, dict):
                 rid = r.get('route_id')
-                if rid:
-                  route_ids.add(rid)
+                if rid is None:
+                  continue
+                rid_s = str(rid).strip()
+                if rid_s:
+                  route_ids.add(rid_s)
 
-            missing = sorted([lid for lid in expected_line_ids if lid not in route_ids])
+            # Ensure expected IDs are trimmed strings as well for exact comparison
+            expected_ids = set(str(x).strip() for x in expected_line_ids if x is not None and str(x).strip())
+            missing = sorted([lid for lid in expected_ids if lid not in route_ids])
             if missing:
               msg = f'{len(missing)} missing line_id(s) not found in routes.txt: {missing[:20]}'
               print('ERROR -', msg)
@@ -160,8 +170,12 @@ jobs:
           for row in reader:
             aid = row.get('agency_id')
             lid = row.get('line_id')
-            if aid and lid:
-              agencies[aid].add(lid)
+            if not aid or lid is None:
+              continue
+            # normalize/strip line_id so we only compare route_id values
+            lid_s = str(lid).strip()
+            if lid_s:
+              agencies[aid].add(lid_s)
           f.close()
           print(f'Parsed {len(agencies)} agency(ies): {list(agencies.keys())[:50]}')
 
@@ -211,13 +225,21 @@ jobs:
               errors.append(msg)
               continue
 
+            # Build set of route_id values (trimmed). Do NOT use route_short_name.
             route_ids = set()
             for r in routes:
-              if 'route_id' in r and r['route_id']:
-                route_ids.add(r['route_id'])
+              if isinstance(r, dict):
+                rid = r.get('route_id')
+                if rid is None:
+                  continue
+                rid_s = str(rid).strip()
+                if rid_s:
+                  route_ids.add(rid_s)
 
+            # Ensure line IDs from CSV are trimmed for exact comparison
+            csv_ids = set(str(x).strip() for x in line_ids if x is not None and str(x).strip())
             # Match only against route_id (do not match on route_short_name)
-            missing = sorted([lid for lid in line_ids if lid not in route_ids])
+            missing = sorted([lid for lid in csv_ids if lid not in route_ids])
             if missing:
               msg = f'{len(missing)} missing line_id(s) not found in routes.txt: {missing[:20]}'
               print(f'Agency {agency}: ERROR - {msg}')
